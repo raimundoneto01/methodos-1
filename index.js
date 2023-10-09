@@ -6,33 +6,35 @@ const btnSend = document.getElementById('btnSend')
 const lista = document.getElementById('lista')
 const filter = document.getElementById('filter')
 
- // array que ta recebendo os dados do input .
-const convidados = []
+ 
+const convidados = []     // array que ta recebendo os dados do input .
 
-btnSend.addEventListener('click', ()=>{
 
+function handleClick(array){
+
+    const resultado = lista.innerHTML = array.map((convidado) => {
+            return `<li>${convidado}</li>`
+         }).join("");
+
+    return resultado      
+}
+
+function handleConvidados(){
     convidados.push(convidado.value)
-    lista.innerHTML = convidados.map((convidado) =>{
-        return `<li>${convidado}</li>`
-    })
+    handleClick(convidados)
+    convidado.value = ""    // enviar os dados para o array ..
+}
 
-    .join("") // o join() para limpar a vírgula
-    console.log(convidados);
-    convidado.value = ""
-    // limpando o input
-})
 
-// filter de pesquisa - input.
-filter.addEventListener('input', ()=>{
-
+function handlerConvidadosFiltrado(){
     const convidadosFilter = convidados.filter((convidado) =>
     convidado.toLowerCase().includes(filter.value.toLowerCase())
     );
+    handleClick(convidadosFilter)   // filter de pesquisa - input .
+}
 
-    lista.innerHTML = convidadosFilter.map((convidado) => {
-        return`<li>${convidado}</li>`
-    })
-    
-    .join("")
-    console.log(convidadosFilter);
-})
+
+
+btnSend.addEventListener('click', handleConvidados)  // botão de enviar .
+
+filter.addEventListener('input', handlerConvidadosFiltrado) // pesquisa dos dados ...
